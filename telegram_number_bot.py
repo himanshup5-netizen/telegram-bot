@@ -32,7 +32,6 @@ BASE_DIR = Path(__file__).resolve().parent
 USER_FILE = BASE_DIR / "users.json"
 PROTECT_FILE = BASE_DIR / "protected.json"
 LEARN_FILE = BASE_DIR / "learn.json"
-SESSION_FILE = BASE_DIR / "my_user_session"
 
 BOT_TIMEZONE_NAME = os.getenv("BOT_TIMEZONE", "Asia/Kolkata")
 BOT_TIMEZONE = ZoneInfo(BOT_TIMEZONE_NAME)
@@ -762,10 +761,7 @@ async def main() -> None:
     ensure_data_files()
 
     session_string = os.getenv("TELETHON_SESSION_STRING")
-    if session_string:
-        client = TelegramClient(StringSession(session_string), api_id, api_hash)
-    else:
-        client = TelegramClient(str(SESSION_FILE), api_id, api_hash)
+client = TelegramClient(StringSession(session_string), api_id, api_hash)
 
     client.add_event_handler(
         new_reply,
